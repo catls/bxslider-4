@@ -33,6 +33,7 @@
 		useCSS: true,
 		preloadImages: 'visible',
 		responsive: true,
+		reverse: false,
 
 		// TOUCH
 		touchEnabled: true,
@@ -1191,8 +1192,14 @@
 		el.goToNextSlide = function(){
 			// if infiniteLoop is false and last page is showing, disregard call
 			if (!slider.settings.infiniteLoop && slider.active.last) return;
-			var pagerIndex = parseInt(slider.active.index) + 1;
-			el.goToSlide(pagerIndex, 'next');
+			if(slider.settings.reverse){
+				var pagerIndex = parseInt(slider.active.index) - 1;
+				el.goToSlide(pagerIndex, 'prev');
+			}
+			else{
+				var pagerIndex = parseInt(slider.active.index) + 1;
+				el.goToSlide(pagerIndex, 'next');
+			}
 		}
 
 		/**
@@ -1201,8 +1208,14 @@
 		el.goToPrevSlide = function(){
 			// if infiniteLoop is false and last page is showing, disregard call
 			if (!slider.settings.infiniteLoop && slider.active.index == 0) return;
-			var pagerIndex = parseInt(slider.active.index) - 1;
-			el.goToSlide(pagerIndex, 'prev');
+			if(slider.settings.reverse){
+				var pagerIndex = parseInt(slider.active.index) + 1;
+				el.goToSlide(pagerIndex, 'next');
+			}
+			else{
+				var pagerIndex = parseInt(slider.active.index) - 1;
+				el.goToSlide(pagerIndex, 'prev');
+			}
 		}
 
 		/**
